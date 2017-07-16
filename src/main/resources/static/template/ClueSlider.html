@@ -1,0 +1,99 @@
+<!-- 以一个带ID的div包含起来，容易控制css不越界 -->
+<form class="detail-div detail-lg" name="FormClueEditor" data-ng-if="ClueEditor.obj !== null">
+    <!-- 展示详情页面 -->
+    <div class="detail-title">
+        <h4 data-ng-if="ClueEditor.isNew">
+            <i class="fa fa-plus"></i>
+            <span>新建线索</span>
+        </h4>
+        <h4 data-ng-if="!ClueEditor.isNew">
+            <i class="fa fa-edit"></i>
+            <span>编辑线索：{{ClueEditor.obj.clueName}}</span>
+        </h4>
+        <div class="toolbar">
+            <button class="btn btn-primary btn-xs btn-save-doc"
+                    data-loading-text="WORD文档生成ing..."
+                    autocomplete="off"
+                    type="button"
+                    data-ng-click="ClueEditor.downloadDoc(ClueEditor.obj.id)">
+                <i class="glyphicon glyphicon-cloud-download"></i>下载WORD
+            </button>
+            <button class="btn btn-default btn-xs"
+                    type="button"
+                    data-ng-disabled="FormClueEditor.$invalid"
+                    data-ng-click="ClueEditor.updateAsset('DRAFT')">
+                <i class="glyphicon glyphicon-floppy-disk"></i> 保存
+            </button>
+            <button class="btn btn-primary btn-xs clue-submit"
+                    type="button"
+                    data-ng-disabled="FormClueEditor.$invalid"
+                    data-ng-click="ClueEditor.updateAsset('SUBMIT')">
+                <i class="glyphicon glyphicon-ok"></i> 提交
+            </button>
+        </div>
+        <a class="close" data-ng-click="ClueEditor.cancel()"><span aria-hidden="true">&times;</span></a>
+    </div>
+    <!-- 展示详情的tab页标签 -->
+    <div class="detail-body">
+        <div data-uib-tabset justified="true" class="mo-title-outter" active="active">
+            <!-- 线索tab页 -->
+            <div data-uib-tab class="mo-title" index="0" heading="线索">
+                <div class="loader" data-ng-if="loading">正在加载...</div>
+                <div class="properties">
+                    <div class="subtitle">
+                        <b>基本属性</b>
+                    </div>
+                    <div class="col-sm-12 form-group"
+                         data-ng-class="{'has-error': FormClueEditor.clueName.$invalid}">
+                        <div class="input-group input-sm">
+							<span class="input-group-addon">
+								<span class="required">*</span>标题:
+							</span>
+                            <input type="text" class="form-control" name="clueName"
+                                   tabindex="0" data-ng-model="ClueEditor.obj.clueName"
+                                   data-ng-required="true"
+                                   placeholder="标题为必填项，最多120个字">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group clearfix">
+                        <div class="input-group input-sm">
+                            <span class="input-group-addon">记者:</span>
+                            <input type="text" class="form-control" name="authorName" placeholder="请输入记者"
+                                   data-ng-model="ClueEditor.obj.authorName" data-ng-required="true">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group clearfix"
+                         data-ng-class="{'has-error': FormClueEditor.newsDomain.$invalid}">
+                        <div class="input-group input-sm">
+							<span class="input-group-addon">
+								<span class="required">*</span>新闻领域:
+							</span>
+                            <select data-ng-model="ClueEditor.obj.newsDomain"
+                                    name="newsDomain"
+                                    data-ng-options="s for s in condition.newsDomain"
+                                    class="form-control" style="width: 100%;">
+                                <option value="">请选择新闻领域</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group clearfix">
+                        <div class="input-group input-sm">
+                            <span class="input-group-addon">创建者:</span>
+                            <input type="text" class="form-control" name="createBy" placeholder="请输入创建者"
+                                   data-ng-model="ClueEditor.obj.createBy" data-ng-required="true">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group clearfix">
+                        <div class="input-group input-sm">
+                            <span class="input-group-addon">内容:</span>
+                            <textarea class="form-control" name="content" rows="2"
+                                      placeholder="请输入摘要与备注信息"
+                                      data-ng-model="ClueEditor.obj.content">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</form>
