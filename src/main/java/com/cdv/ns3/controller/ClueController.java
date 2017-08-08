@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,30 +31,30 @@ public class ClueController {
      * @return Clue
      */
     @PostMapping("/add")
-    public Clue add(@RequestBody Clue clue2, BindingResult bindingResult){
-        UUIDUtils uuidUtils = new UUIDUtils();
-        clue2.setId(uuidUtils.creatUUID());
+    public Clue add(@RequestBody Clue clue, BindingResult bindingResult){
+    	if (clue.getId() == null) {
+    		UUIDUtils uuidUtils = new UUIDUtils();
+    		clue.setId(uuidUtils.creatUUID());
+		}else {
+			clue.setId(clue.getId());
+		}
+        clue.setCreatedBy(clue.getCreatedBy());
+        clue.setCreatedTime(clue.getCreatedTime());
+        clue.setAuthorName(clue.getAuthorName());
+        clue.setContent(clue.getContent());
+        clue.setClueName(clue.getClueName());
+        clue.setEditStatus(clue.getEditStatus());
 
-        clue2.setCreatedBy(clue2.getCreatedBy());
-        clue2.setCreatedTime(clue2.getCreatedTime());
-        clue2.setAuthorName(clue2.getAuthorName());
-        clue2.setContent(clue2.getContent());
-        clue2.setClueName(clue2.getClueName());
-        clue2.setEditStatus(clue2.getEditStatus());
-
-        return clueService.add(clue2);
+        return clueService.add(clue);
     }
 
-    @PostMapping("/delete")
-    public Clue delete(@RequestParam String id){
-        return null;
-    }
-
-    @RequestMapping("/findById")
+    //@RequestMapping("/findById")
+    @PostMapping("/findById")
     public Clue findById(@RequestParam String id){
         return clueService.findById(id);
     }
 
+    //上传
     @PostMapping("/update")
     public Clue update(@RequestBody Clue clue){
         clue.setId(clue.getId());
@@ -67,8 +68,8 @@ public class ClueController {
         return clueService.update(clue);
     }
 
-    @RequestMapping("/deleteById")
-    public Integer deleteById(@RequestParam String id){
+    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    public Integer deleteById(@RequestParam(value = "moId", required = true) String id){
         return clueService.deleteById(id);
     }
 }
