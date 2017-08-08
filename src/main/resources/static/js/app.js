@@ -2,7 +2,10 @@ var App = angular.module("App", ["ngResource", "ngRoute", 'ngAnimate', 'angularU
 //var App = angular.module("App", ['angularUUID2', 'angularFileUpload', "ui.router", 'ui.bootstrap']);
 /* 配置信息 */
 App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
-		$routeProvider.when('/clue', {
+		$routeProvider.when('/activiti', {
+            templateUrl: 'partials/activiti.html',
+            controller: 'activitiController'
+        }).when('/clue', {
             templateUrl: 'partials/clue.html',
             controller: 'clueController'
         }).when('/mytopic', {
@@ -14,9 +17,6 @@ App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 		}).when('/libtopic', {
 			templateUrl: 'partials/libTopic.html',
 			controller: 'libTopicController'
-		}).when('/querytopic', {
-			templateUrl: 'partials/queryTopic.html',
-			controller: 'queryTopicController'
 		}).when('/relatedcome', {
 			templateUrl: 'partials/relatedcome.html',
 			controller: 'relatedcomeController'
@@ -26,7 +26,7 @@ App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 	}])
 	.controller('MainController', ['$rootScope', '$scope', '$uibModal',
 		function($rootScope, $scope, $uibModal) {
-			
+
 		}
 	])
 	.directive('elementDisable', [function(){
@@ -40,11 +40,6 @@ App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 					element.attr("disabled",true);
 					element.attr("style","color:#798296");
 				}
-//				else{
-//					element.bind("click", function(){
-//						
-//					})
-//				}
 			}
 		}
 	}])
