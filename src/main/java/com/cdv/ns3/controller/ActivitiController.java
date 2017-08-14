@@ -1,15 +1,27 @@
 package com.cdv.ns3.controller;
 
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ActivitiController {
 	
-	@PostMapping("/createTables")
-	public void createTables(){
-		ProcessEngineConfiguration conf = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
-		conf.buildProcessEngine();
+	@Autowired
+	private TaskService taskService;
+	
+	@Autowired
+	private ProcessEngine processEngine;
+	
+	@RequestMapping("/task")
+	public String task(){
+		return taskService.toString();
+	}
+	
+	@RequestMapping("/xxx")
+	public String index(){
+		return "xxxxx";
 	}
 }
