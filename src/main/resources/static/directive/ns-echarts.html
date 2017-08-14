@@ -1,0 +1,14 @@
+<form class="form-inline comstatictics-form-search ng-pristine ng-valid ng-valid-maxlength ng-valid-required" role="form" id="comstatictics-form-search">
+	<div class="input-group input-sm">
+		<span class="input-group-addon">统计周期:</span>
+		<input type="text" custom-timepicker time-show="false" class="form-control createDateBegin ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-required" name="createDateBegin" id="createDateBegin" required="" placeholder="开始日期" data-ng-model="echartObj.createDateBegin">
+		<span class="input-group-addon">-</span>
+		<input type="text" custom-timepicker time-show="false" class="form-control createDateEnd ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-required" name="createDateEnd" id="createDateEnd" required="" placeholder="结束日期" data-ng-model="echartObj.createDateEnd">
+	</div>
+	<div class="input-group input-sm">
+		<button style="margin: 14px" id="relatedcom_search_btn" type="button" class="btn btn-default relatedcom_search_btn" data-ng-click="echartObj.refresh()">
+			<span class="glyphicon glyphicon-search"></span>
+		</button>
+	</div>
+	<div id="searchCost" class="panel-body" style="height:320px"> </div>
+</form>
