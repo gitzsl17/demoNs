@@ -1,7 +1,8 @@
 package com.cdv.ns3.service;
 
+import com.cdv.ns3.dao.ClueRepository;
 import com.cdv.ns3.model.Clue;
-import com.cdv.ns3.repository.ClueRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

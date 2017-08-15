@@ -1,4 +1,4 @@
-package com.cdv.ns3.repository;
+package com.cdv.ns3.dao;
 
 
 import com.cdv.ns3.model.Clue;
@@ -10,4 +10,5 @@ public interface ClueRepository extends JpaRepository<Clue,Integer> {
     public Clue findClueById(String id);
 
     public Integer deleteById(String id);
+    
 }
