@@ -3,15 +3,25 @@ package com.cdv.ns3.controller;
 import com.cdv.ns3.model.Clue;
 import com.cdv.ns3.service.ClueService;
 import com.cdv.ns3.utils.UUIDUtils;
+import com.cdv.ns3.utils.WordGenerator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ClueController {
@@ -80,68 +90,20 @@ public class ClueController {
     
     //导出word
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
-	public void downloadDoc(HttpServletRequest req, HttpServletResponse resp, @RequestParam("moId") String moId,
-			@RequestParam("assetType") AssetType assetType) {
-		String userId = SecurityHelper.getCurrentUserId();
+	public void downloadDoc(HttpServletRequest req, HttpServletResponse resp, @RequestParam("moId") String moId) {
 		// 提示：在调用工具类生成Word文档之前应当检查所有字段是否完整
 		// 否则Freemarker的模板引擎在处理时可能会因为找不到值而报错 这里暂时忽略这个步骤了
-		String stationId = SecurityHelper.getCurrentStationId();
 		java.io.File file = null;
 		InputStream fin = null;
 		ServletOutputStream out = null;
 		StringBuffer authorStr = new StringBuffer();
 		StringBuffer correspondentStr = new StringBuffer();
-		List<User> listUsers = _nsUserApi.findAllUsers(stationId);
 		try {
 			req.setCharacterEncoding("utf-8");
-			MObject mo = _moApi.get(userId, moId, false, null);
-			Map<String, Object> map = mo.getExtraData();
-			map.put("assetName", mo.getName());
-			String createdBy = mo.getCreatedBy();
-			if (createdBy != null && createdBy.length() > 0) {
-				for (User user : listUsers) {
-					if (createdBy.equals(user.getId())) {
-						map.put("createdBy", user.getName());
-					}
-				}
-			} else {
-				map.put("createdBy", createdBy);
-			}
-			String author = map.get("author") == null ? "" : map.get("author").toString();
-			if (author != null && author.length() > 2) {
-				author = author.substring(1, author.length() - 1);
-				String[] authorArr = author.split(",");
-				for (int i = 0; i < authorArr.length; i++) {
-					for (User user : listUsers) {
-						if (authorArr[i].trim().equals(user.getId())) {
-							authorStr.append(user.getName() + ",");
-						}
-					}
-				}
-				map.put("author", authorStr.toString().substring(0, authorStr.toString().lastIndexOf(",")));
-			} else {
-				map.put("author", "");
-			}
-			if (map.get("createdTo") == null) {
-				map.put("createdTo", "");
-			}
-			String correspondent = map.get("correspondent") == null ? "" : map.get("correspondent").toString();
-			if (correspondent != null && correspondent.length() > 2) {
-				correspondent = correspondent.substring(1, correspondent.length() - 1);
-				String[] correspondentArr = correspondent.split(",");
-				for (int i = 0; i < correspondentArr.length; i++) {
-					for (User user : listUsers) {
-						if (correspondentArr[i].trim().equals(user.getId())) {
-							correspondentStr.append(user.getName() + ",");
-						}
-					}
-				}
-				map.put("correspondent",
-						correspondentStr.toString().substring(0, correspondentStr.toString().lastIndexOf(",")));
-			} else {
-				map.put("correspondent", "");
-			}
-			String assetname = mo.getName();
+			Clue clue = clueService.findById(moId);
+			Map<String, Object> map = new HashMap<>();
+			map.put("clueName", clue.getClueName());
+			map.put("createdBy", clue.getCreatedBy());
 			// 调用工具类WordGenerator的createDoc方法生成Word文档
 			file = WordGenerator.createDoc(map, assetType);
 			fin = new FileInputStream(file);
@@ -149,7 +111,7 @@ public class ClueController {
 			resp.setCharacterEncoding("utf-8");
 			resp.setContentType("application/msword");
 			// 设置浏览器以下载的方式处理该文件默认名为resume.doc
-			String fileName = (StringUtils.hasLength(assetname) ? assetname : "untitled") + ".doc";
+			String fileName = (StringUtils.hasLength(clue.getClueName()) ? clue.getClueName() : "untitled") + ".doc";
 			fileName = new String(fileName.getBytes("UTF-8"), "ISO_8859_1");
 			resp.addHeader("Content-Disposition", "attachment;filename=" + fileName);
 			out = resp.getOutputStream();
