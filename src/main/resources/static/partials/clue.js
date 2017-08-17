@@ -190,6 +190,25 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
                 }, 1000);
             });
         },
+        
+        downloadDoc:function(moId) {
+        	window.location = '/ns/doc?assetType=CLUE&moId=' + moId;
+        	/*$.ajax({
+        	     type : "GET",  //提交方式
+        	     url : "/ns/doc",//路径
+        	     data : {
+        	    	  moId:moId,
+        	    	  assetType:'CLUE'
+        	      },
+        	      success : function(resp) {
+	    	    	  $scope.message = resp;
+	                  $scope.ClueEditor.cancel();
+	                  $timeout(function() {
+	                      //$scope.listObj.load();
+	                  }, 1000);
+        	      }
+        	});*/
+        }
 
     }
 

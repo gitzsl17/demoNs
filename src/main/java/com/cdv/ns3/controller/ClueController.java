@@ -1,5 +1,6 @@
 package com.cdv.ns3.controller;
 
+import com.cdv.ns3.common.Constants.AssetType;
 import com.cdv.ns3.model.Clue;
 import com.cdv.ns3.service.ClueService;
 import com.cdv.ns3.utils.UUIDUtils;
@@ -90,22 +91,21 @@ public class ClueController {
     
     //导出word
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
-	public void downloadDoc(HttpServletRequest req, HttpServletResponse resp, @RequestParam("moId") String moId) {
-		// 提示：在调用工具类生成Word文档之前应当检查所有字段是否完整
-		// 否则Freemarker的模板引擎在处理时可能会因为找不到值而报错 这里暂时忽略这个步骤了
+	public void downloadDoc(HttpServletRequest req, HttpServletResponse resp, @RequestParam("moId") String moId,AssetType assetType) {
 		java.io.File file = null;
 		InputStream fin = null;
 		ServletOutputStream out = null;
-		StringBuffer authorStr = new StringBuffer();
-		StringBuffer correspondentStr = new StringBuffer();
 		try {
 			req.setCharacterEncoding("utf-8");
 			Clue clue = clueService.findById(moId);
 			Map<String, Object> map = new HashMap<>();
 			map.put("clueName", clue.getClueName());
-			map.put("createdBy", clue.getCreatedBy());
+			map.put("content", clue.getContent());
+			/*if (clue.getCreatedBy() != "" && clue.getCreatedBy() != null) {
+				map.put("createdBy", clue.getCreatedBy());
+			}*/
 			// 调用工具类WordGenerator的createDoc方法生成Word文档
-			file = WordGenerator.createDoc(map, assetType);
+			file = WordGenerator.createDoc(map,assetType);
 			fin = new FileInputStream(file);
 
 			resp.setCharacterEncoding("utf-8");
@@ -140,3 +140,10 @@ public class ClueController {
 		}
 	}
 }
+
+
+
+
+
+
+

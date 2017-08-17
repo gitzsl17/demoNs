@@ -8,8 +8,11 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cdv.ns3.common.Constants.AssetType;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 
 public class WordGenerator {
