@@ -84,7 +84,7 @@ public class ClueController {
         return clueService.update(clue);
     }
 
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public Integer deleteById(@RequestParam(value = "moId", required = true) String id){
         return clueService.deleteById(id);
     }

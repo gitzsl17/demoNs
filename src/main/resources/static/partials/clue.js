@@ -62,10 +62,21 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
 				var msg = "您真的确定要删除吗？\n\n请确认！";
 				if (confirm(msg) == true) {
 					angular.forEach($scope.listObj.selectData, function(at){
-						var param = {
-							moId:at.id
-						};
-						$http({
+						$.ajax({
+			        	     type : "GET",  //提交方式
+			        	     url : "/ns/deleteById",//路径
+			        	     data : {
+			        	    	  moId:at.id,
+			        	      },
+			        	      success : function(resp) {
+				    	    	  $scope.message = resp;
+				                  $scope.ClueEditor.cancel();
+				                  $timeout(function() {
+				                      $scope.listObj.load();
+				                  }, 1000);
+			        	      }
+			        	});
+						/*$http({
 							url:'/ns/deleteById',
 							method:'DELETE',
 							data:param
@@ -74,7 +85,7 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
 							$timeout(function() {
 								$scope.listObj.load();
 							}, 1000);
-						});
+						});*/
 					});
 				}
 			}
