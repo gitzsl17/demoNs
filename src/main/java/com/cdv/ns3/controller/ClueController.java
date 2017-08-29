@@ -145,9 +145,9 @@ public class ClueController {
     
     @RequestMapping(value="/searchAssets", method = RequestMethod.POST)
     public QueryResult<Clue> searchAssets(Integer page,Integer size){
-    	List<Clue> clueList = clueService.clueList();
+    	//List<Clue> clueList = clueService.clueList();
     	Page<Clue> pagenation = clueService.getPagenation(page, size);
-    	QueryResult<Clue> queryResult = new QueryResult<>(pagenation.getTotalElements(),clueList);
+    	QueryResult<Clue> queryResult = new QueryResult<>(pagenation.getTotalElements(),pagenation.getContent());
     	return queryResult;
     }
 }

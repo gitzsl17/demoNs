@@ -7,7 +7,7 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
 		pageSize: 10,
 		currentPage: 1,
 		totalCount: 0,
-		pages: 0,
+		pages: 1,
 		inputPage: "",
 		
         data: null,
@@ -18,7 +18,7 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
 		   	     type : "POST",  //提交方式
 		   	     url : "/ns/searchAssets",//路径
 		   	     data : {
-		   	    	 page:$scope.listObj.pages,
+		   	    	 page:$scope.listObj.pages - 1,
 		   	    	 size:$scope.listObj.pageSize
 		   	      },
 		   	      success : function(resp) {
