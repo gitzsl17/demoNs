@@ -50,8 +50,8 @@ public class ClueService {
     	return clueRepository.count();
     }
 
-    //分页查询
-    public void getPagenation(Integer page,Integer size){
+    //分页查询,JpaRepository继承了PagingAndSortingRepository
+    public Page<Clue> getPagenation(Integer page,Integer size){
     	
     	//page:表示第几页(从0开始);	size:每页显示条数
     	Pageable pageable = new PageRequest(page, size);
@@ -61,6 +61,7 @@ public class ClueService {
     	System.out.println("查询当前第几页:" + pages.getNumber());
     	System.out.println("查询当前页面的集合:" + pages.getContent());
     	System.out.println("查询当前页面的记录数:" + pages.getNumberOfElements());
+		return pages;
     };
     
     //排序

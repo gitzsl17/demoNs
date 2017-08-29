@@ -201,4 +201,53 @@
 #ns_tonglian_clue .relatedcomclue-detail-list tr{
     border-bottom: 1px solid #ddd;
 }
+
+
+/*****************
+// 
+// 底部分页标签
+// 
+/*****************/
+
+.page-footer {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page-footer div {
+    display: inline-block;
+}
+
+.page-footer input {
+    display: inline;
+    width: 45px;
+    margin: 0 2px;
+    height: 24px;
+    padding: 0;
+}
+
+.pagination {
+    margin: 0 !important;
+}
+
+.pagination-sm>li>a,
+.pagination-sm>li>span {
+    padding: 2px 8px;
+}
+
+.page-footer .footer-center {
+    font-size: 12px;
+    float: none;
+    position: relative;
+    top: -8px;
+}
+
+.page-footer .footer-right {
+    padding-top: 0px;
+    font-size: 12px;
+    float: none;
+    display: inline-block;
+    position: relative;
+    top: -8px;
+}
     

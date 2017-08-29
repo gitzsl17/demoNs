@@ -2,6 +2,7 @@ package com.cdv.ns3.controller;
 
 import com.cdv.ns3.common.Constants.AssetType;
 import com.cdv.ns3.model.Clue;
+import com.cdv.ns3.model.QueryResult;
 import com.cdv.ns3.service.ClueService;
 import com.cdv.ns3.utils.UUIDUtils;
 import com.cdv.ns3.utils.WordGenerator;
@@ -9,6 +10,8 @@ import com.cdv.ns3.utils.WordGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -139,6 +142,14 @@ public class ClueController {
 
 		}
 	}
+    
+    @RequestMapping(value="/searchAssets", method = RequestMethod.POST)
+    public QueryResult<Clue> searchAssets(Integer page,Integer size){
+    	List<Clue> clueList = clueService.clueList();
+    	Page<Clue> pagenation = clueService.getPagenation(page, size);
+    	QueryResult<Clue> queryResult = new QueryResult<>(pagenation.getTotalElements(),clueList);
+    	return queryResult;
+    }
 }
 
 

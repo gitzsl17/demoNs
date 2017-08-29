@@ -3,26 +3,39 @@ App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', fu
     var app = angular.module('app', []);
     /* 列表对象 */
     $scope.listObj = {
+		
+		pageSize: 10,
+		currentPage: 1,
+		totalCount: 0,
+		pages: 0,
+		inputPage: "",
+		
         data: null,
         selectData: [],
         allSelected: false,
         load: function() {
-            var param = {};
-            $http({
-                url:'/ns/findAll',
-                method:'POST',
-                data:param,
-            }).success(function (resp) {
-                angular.forEach(resp, function(x, i) {		//加载初始化值
-					x.selected = false;
-					if (x.editStatus == "DRAFT" || x.editStatus == "SUBMIT") {
-						x.editStatus = "未上传";
-					}else if (x.editStatus == "LIBRARY") {
-						x.editStatus = "已上传";
-					};
-				});
-                $scope.listObj.data = resp;
-            });
+            $.ajax({
+		   	     type : "POST",  //提交方式
+		   	     url : "/ns/searchAssets",//路径
+		   	     data : {
+		   	    	 page:$scope.listObj.pages,
+		   	    	 size:$scope.listObj.pageSize
+		   	      },
+		   	      success : function(resp) {
+		   	    	  if (resp != null) {
+		   	    		angular.forEach(resp.items, function(x, i) {		//加载初始化值
+							x.selected = false;
+							if (x.editStatus == "DRAFT" || x.editStatus == "SUBMIT") {
+								x.editStatus = "未上传";
+							}else if (x.editStatus == "LIBRARY") {
+								x.editStatus = "已上传";
+							};
+						});
+		                $scope.listObj.data = resp.items;
+					}
+		   	    	  $scope.listObj.totalCount = resp.totalCount;
+		   	      }
+		   	});
         },
         selected: function(at, e) {
             e.stopPropagation();
