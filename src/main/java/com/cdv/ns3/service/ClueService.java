@@ -76,12 +76,6 @@ public class ClueService {
     	Order orders = new Order(Sort.Direction.DESC, "id");		//根据某个字段(id)升序或者降序
     	Sort sort = new Sort(orders);
     	Pageable pageable = new PageRequest(page, size, sort);
-    	
-    	/*Specification<Clue> specification = new Specifications<Clue>(){
-    		@Override
-    		public 
-    	}*/
-    	
     }
     
     

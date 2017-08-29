@@ -14,18 +14,18 @@ public interface ClueRepository extends JpaRepository<Clue,Integer>,JpaSpecifica
     public Clue findClueById(String id);
 
     @Modifying
-    @Query("select from Clue where id in (:id)")
+    @Query("select clueName from Clue where id in (:id)")
     public Integer findById(@Param("id") String id);
     
-    @Query("select from Clue where Clue.id = ?1 and name = ?2")
+    @Query("select clueName from Clue where id = ?1 and clueName = ?2")
     public Clue getParam(String id,String name);
     
     //原生态查询	nativeQuery:表示是否打开原生态的查询
-    @Query(nativeQuery=true,value="select count(*) from Clue")
+    @Query(nativeQuery=true,value="select count(id) from Clue")
     public Clue getCount();
 
     @Modifying
-    @Query("delete * from Clue where id = ?1")
+    @Query("delete from Clue where id = ?1")
 	public Integer deleteById(String id);
     
 }

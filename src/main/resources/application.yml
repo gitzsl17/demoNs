@@ -6,6 +6,13 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/newsphere3
       username: root
       password: root
+#  data:
+#    mongodb:
+#      database: ns-weiwei
+#      host: 127.0.0.1
+#      port: 27017
+#      username: 
+#      password:
   jpa:
     hibernate:
       ddl-auto: update
