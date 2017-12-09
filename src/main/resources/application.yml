@@ -8,11 +8,9 @@ spring:
       password: root
 #  data:
 #    mongodb:
-#      database: ns-weiwei
+#      database: test
 #      host: 127.0.0.1
 #      port: 27017
-#      username: 
-#      password:
   jpa:
     hibernate:
       ddl-auto: update
