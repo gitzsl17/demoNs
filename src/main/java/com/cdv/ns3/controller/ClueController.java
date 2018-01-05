@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 public class ClueController {
@@ -103,10 +105,23 @@ public class ClueController {
 			Clue clue = clueService.findById(moId);
 			Map<String, Object> map = new HashMap<>();
 			map.put("clueName", clue.getClueName());
+			String content = (String) map.get("content");
+			if (content == null || content.equals("")) {
+				map.put("content", "");
+			} else {
+				String regEx = "<[.[^<]]*>";
+				Pattern p = Pattern.compile(regEx);
+				Matcher m = p.matcher(content);
+				content = m.replaceAll("");
+				content = content.replace("&nbsp;", "");
+				content = content.replace("【导语】", "\r\n【导语】\r\n");
+				content = content.replace("【正文】", "\r\n【正文】\r\n");
+				content = content.replace("【编后】", "\r\n【编后】\r\n");
+				content = content.replace("【满屏】", "\r\n【满屏】\r\n");
+				content = content.replace("【同期声】", "\r\n【同期声】\r\n");
+				map.put("content", content);
+			}
 			map.put("content", clue.getContent());
-			/*if (clue.getCreatedBy() != "" && clue.getCreatedBy() != null) {
-				map.put("createdBy", clue.getCreatedBy());
-			}*/
 			// 调用工具类WordGenerator的createDoc方法生成Word文档
 			file = WordGenerator.createDoc(map,assetType);
 			fin = new FileInputStream(file);
