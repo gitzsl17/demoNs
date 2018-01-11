@@ -1,7 +1,7 @@
 App.directive('nsEcharts', function ($window, $timeout) {
 	return {
 		restrict: 'AC',
-		templateUrl: 'directive/ns-echarts.html',
+		templateUrl: 'resources/session/directive/ns-echarts.html',
 		link: function(scope, element, attrs) {
 			var $echartsConfig = {
 				tooltip: {

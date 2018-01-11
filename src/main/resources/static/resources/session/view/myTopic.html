@@ -25,18 +25,6 @@
 					<div class="breed-box">
 						<ul>
 							<li data-ng-repeat="at in condition.time"><a href="javascript:;" data-ng-click="condition.selectTime(at)" data-ng-class="{true:'active', false:''}[at.active]" >{{at.option}}</a></li>
-							<!--<li>
-								<a href="javascript:;">不限</a>
-							</li>-->
-							<!--<li>
-								<a href="javascript:;">当天</a>
-							</li>
-							<li>
-								<a href="javascript:;">本周</a>
-							</li>
-							<li>
-								<a href="javascript:;">本月</a>
-							</li>-->
 						</ul>
 					</div>
 					<div class="pull-right action-box">
@@ -51,9 +39,6 @@
 			<div class="pull-left">我的选题<i class="fa fa-angle-right"></i></div>
 			<ul class="pull-left">
 				<li class="pull-left filter-item" data-ng-repeat="item in condition.filter">{{item.name}}：<span>{{item.data | limitTo: 2}}</span><i class="fa fa-times" data-ng-click="condition.del(item)"></i></li>
-				<!--<div class="pull-left filter-item" result-item value-item="">状态：<span>待审</span><i class="fa fa-times"></i></div>
-				<div class="pull-left filter-item" result-item>分类：<span>时政</span> <i class="fa fa-times"></i></div>
-				<div class="pull-left filter-item" result-item>发布渠道：<span>电视</span> <i class="fa fa-times"></i></div>-->
 			</ul>
 			<div class="pull-left">
 				<a href="javascript:;" data-ng-click="condition.clearFilter()">清空筛选</a>
@@ -67,15 +52,6 @@
 					<a href="javascript:;" data-ng-click="condition.clearSort()">默认排序</a>
 				</li>
 				<li data-ng-repeat="at in condition.sort"><a href="javascript:;" data-ng-click="condition.sortFunc(at)">{{at.name}}<i class="fa fa-sort"></i></a></li>
-				<!--<li>
-					<a href="javascript:;">创建时间<i class="fa fa-sort"></i></a>
-				</li>
-				<li>
-					<a href="javascript:;">发布渠道<i class="fa fa-sort"></i></a>
-				</li>-->
-				<!--<li>
-					<a href="javascript:;">状态<i class="fa fa-sort"></i></a>
-				</li>-->
 			</ul>
 			<span class="pull-right">当前页10条/共50条</span>
 		</div>
@@ -125,5 +101,5 @@
 		</div>
 	</div>
 	<!-- 详情页 -->
-	<div class="detail-container" data-ng-include="'template/topicDetail.html'" data-ng-if="topicObj.show"></div>
+	<div class="detail-container" data-ng-include="'resources/session/template/topicDetail.html'" data-ng-if="topicObj.show"></div>
 </div>

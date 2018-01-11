@@ -508,7 +508,7 @@ App.controller('mytopicController', ['$scope', '$http', '$timeout', '$uibModal',
 				outRandom: "=" //自定位(topicList)
 
 			},
-			templateUrl: './template/condition-item.html',
+			templateUrl: 'resources/session/template/condition-item.html',
 			controller: function($scope) {
 				this.scope = $scope;
 				$scope.itemAction = {
