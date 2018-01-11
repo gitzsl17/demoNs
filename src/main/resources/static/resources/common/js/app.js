@@ -1,24 +1,16 @@
 var App = angular.module('App', ['ngResource', 'ngRoute', 'ngAnimate', 'angularUUID2', 'angularFileUpload', 'ui.bootstrap', 'ui.router']);
 /* 配置信息 */
 App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
-		$routeProvider.when('/activiti', {
-            templateUrl: 'partials/activiti.html',
+		$routeProvider
+		  .when('/activiti', {
+            templateUrl: 'resources/session/view/activiti.html',
             controller: 'activitiController'
         }).when('/clue', {
             templateUrl: 'resources/session/view/clue.html',
             controller: 'clueController'
         }).when('/mytopic', {
-			templateUrl: 'partials/myTopic.html',
+			templateUrl: 'resources/session/view/myTopic.html',
 			controller: 'mytopicController'
-		}).when('/pendtopic', {
-			templateUrl: 'partials/pendTopic.html',
-			controller: 'pendTopicController'
-		}).when('/libtopic', {
-			templateUrl: 'partials/libTopic.html',
-			controller: 'libTopicController'
-		}).when('/relatedcome', {
-			templateUrl: 'partials/relatedcome.html',
-			controller: 'relatedcomeController'
 		}).otherwise({
 			redirectTo: '/'
 		});
@@ -37,7 +29,7 @@ App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 	            },
 	            dependencies: []
 	        })
-	        .state('ns/#/session.ns_clue', { 
+	        .state('session.ns_clue.library', { 
 	            url: '/clue',
 	            templateUrl: 'partials/clue.html',
 	            controllerUrl: 'static/partials/clue.js',
