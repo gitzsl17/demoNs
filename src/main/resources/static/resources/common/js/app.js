@@ -1,11 +1,11 @@
 var App = angular.module('App', ['ngResource', 'ngRoute', 'ngAnimate', 'angularUUID2', 'angularFileUpload', 'ui.bootstrap', 'ui.router']);
 /* 配置信息 */
-/*App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
+App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 		$routeProvider.when('/activiti', {
             templateUrl: 'partials/activiti.html',
             controller: 'activitiController'
         }).when('/clue', {
-            templateUrl: 'partials/clue.html',
+            templateUrl: 'resources/session/view/clue.html',
             controller: 'clueController'
         }).when('/mytopic', {
 			templateUrl: 'partials/myTopic.html',
@@ -22,8 +22,8 @@ var App = angular.module('App', ['ngResource', 'ngRoute', 'ngAnimate', 'angularU
 		}).otherwise({
 			redirectTo: '/'
 		});
-	}])*/
-App.config(function ($stateProvider, $urlRouterProvider) {
+	}])
+/*App.config(function ($stateProvider, $urlRouterProvider) {
 	    $stateProvider
 	        .state('session.ns_resource_b.library', {
 	            url: '/activiti',
@@ -45,7 +45,7 @@ App.config(function ($stateProvider, $urlRouterProvider) {
 	            dependencies: []
 	        })
 		}
-	)
+	)*/
 	.controller('MainController', ['$rootScope', '$scope', '$uibModal',
 		function($rootScope, $scope, $uibModal) {
 

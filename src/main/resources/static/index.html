@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html data-ng-app="App">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<link rel="stylesheet" href="resources/common/3rd/bootstrap/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="resources/common/3rd/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="resources/common/3rd/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="resources/common/css/reset.css" />
+		<link rel="stylesheet" href="resources/common/css/common.css" />
+		<link rel="stylesheet" href="resources/common/css/myTopic.css" />
+		<link rel="stylesheet" href="resources/session/view/clue.css" />
+		<script type="text/javascript" src="resources/common/3rd/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-animate.min.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-resource.min.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-ui-router.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-route.min.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-locale_zh-cn.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-uuid2.min.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/angular-file-upload.min.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/angularjs/ui-bootstrap-tpls-1.1.0.min.js"></script>
+		
+		<script type="text/javascript" src="resources/common/3rd/jquery-nicescroll.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="resources/common/js/app.js"></script>
+
+		<script type="text/javascript" src="resources/session/view/clue.js"></script>
+		<script type="text/javascript" src="resources/session/view/myTopicCtrl.js"></script>
+		<script type="text/javascript" src="resources/session/view/libTopicCtrl.js"></script>
+		<script type="text/javascript" src="resources/session/view/pendTopicCtrl.js"></script>
+		<script type="text/javascript" src="resources/session/view/activiti.js"></script>
+		
+		<!-- echarts -->
+		<script type="text/javascript" src="resources/session/directive/ns-echarts.js"></script>
+		<script type="text/javascript" src="resources/common/3rd/echarts.min.js"></script>
+
+		<title>index</title>
+	</head>
+
+	<body data-ng-controller="MainController">
+		<nav>
+			<div class="logo"></div>
+			<div class="" style="font-size:16px;">选题策划</div>
+			<ul>
+				<li><a href="javascript:;"><i class="glyphicon glyphicon-th-list" style="line-height:22px;"></i></a></li>
+				<li class="nav-item"><a href="#/clue">线索</a></li>
+				<li class="nav-item"><a href="#/mytopic">我的选题</a></li>
+				<li class="nav-item"><a href="#/relatedcome">新闻共享</a></li>
+				<li class="nav-item"><a href="#/activiti">流程</a></li>
+			</ul>
+		</nav>
+		<div class="custom container-fluid" data-ng-view></div>
+	</body>
+</html>
