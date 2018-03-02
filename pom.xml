@@ -30,7 +30,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
+		<!-- Spirng data JPA依赖; -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -44,7 +45,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -72,22 +73,12 @@
 			<version>2.7</version>
 		</dependency>
 		
-		<!-- <dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-elasticsearch</artifactId>
-		</dependency> -->
-		
 		<!-- es依赖log4j -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.7</version>
 		</dependency>
-
-<!--		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-		</dependency>-->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -99,37 +90,19 @@
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
+		<!-- thmleaf模板依赖. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
 		<!--shrio-->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>spring-boot-starter-basic</artifactId>
-			<version>5.17.0</version>
-		</dependency>
-
-		<!--<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-ehcache</artifactId>
-			<version>1.2.3</version>
-		</dependency>-->
-		
 		<!-- solr -->
 		<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,7 +114,24 @@
 		  <artifactId>freemarker</artifactId>
 		  <version>2.3.26-incubating</version>
 		</dependency>
+		
+		<dependency>  
+	        <groupId>org.springframework.cloud</groupId>  
+	        <artifactId>spring-cloud-starter-eureka</artifactId>  
+	   </dependency>
 	</dependencies>
+	
+	<dependencyManagement>  
+	    <dependencies>
+	        <dependency>  
+	            <groupId>org.springframework.cloud</groupId>  
+	            <artifactId>spring-cloud-dependencies</artifactId>  
+	            <version>Camden.SR3</version>  
+	            <type>pom</type>  
+	            <scope>import</scope>  
+	        </dependency>  
+	    </dependencies>  
+	</dependencyManagement> 
 
 	<build>
 		<plugins>

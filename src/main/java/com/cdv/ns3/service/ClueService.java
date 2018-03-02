@@ -3,23 +3,25 @@ package com.cdv.ns3.service;
 import com.cdv.ns3.dao.ClueRepository;
 import com.cdv.ns3.model.Clue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 
 @Service
 public class ClueService {
+	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ClueRepository clueRepository;
@@ -56,12 +58,12 @@ public class ClueService {
     	//page:表示第几页(从0开始);	size:每页显示条数
     	Pageable pageable = new PageRequest(page, size);
     	Page<Clue> pages = clueRepository.findAll(pageable);
-    	System.out.println("查询总页数:" + pages.getTotalPages());
-    	System.out.println("查询总记录数:" + pages.getTotalElements());
-    	System.out.println("查询当前第几页:" + pages.getNumber());
-    	System.out.println("查询当前页面的集合:" + pages.getContent());
-    	System.out.println("查询当前页面的记录数:" + pages.getNumberOfElements());
-		return pages;
+    	logger.info("查询总页数:{}",pages.getTotalPages());
+    	logger.info("查询总记录数:{}", pages.getTotalElements());
+    	logger.info("查询当前第几页:{}",pages.getNumber());
+    	logger.info("查询当前页面的集合:",pages.getContent());
+    	logger.info("查询当前页面的记录数:",pages.getNumberOfElements());
+    	return pages;
     };
     
     //排序
@@ -79,5 +81,8 @@ public class ClueService {
     	Pageable pageable = new PageRequest(page, size, sort);
     }
     
+    public static void main(String[] args){
+    	System.out.println(File.separator);	// 使用于各种系统下的层及目录分割符("/","\")
+    }
     
 }

@@ -1,4 +1,4 @@
-package com.cdv.ns3;
+package com.cdv.ns3.config;
 
 import java.net.InetAddress;
 
