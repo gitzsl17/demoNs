@@ -1,0 +1,25 @@
+<div>
+	<div class="advanced-search btn-group">
+		<a href="javascript:;" class="btn btn-link btn-sm" data-ng-click="condition.funcMore()">
+			<i class="fa" data-ng-class="{true:'fa-caret-up', false:'fa-caret-down'}[condition.moreShow]"></i>
+			<span data-ng-bind="{true:'隐藏统计图', false:'展开统计图'}[condition.moreShow]"></span>
+		</a>
+	</div>
+	<div style="padding:14px;border:1px solid #ddd;border-radius: 5px;" data-ng-if="condition.moreShow">
+		<div class="panel-body" ns-echarts id="ns-echarts"></div>  
+	</div>
+	
+	<div class="view-operation">
+		<span class="ng-scope">
+         	<button class="btn btn-primary ng-scope"
+             		data-ng-click="activitiEditor.createTables()">
+             		生成23张表
+             </button>
+             
+             <button class="btn btn-primary ng-scope"
+             		data-ng-click="ManuscriptEditor.showManuscript(LuyonggaoEditor.obj)">
+             		启动流程
+             </button>
+        </span>
+	</div>
+</div>

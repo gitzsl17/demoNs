@@ -1,0 +1,248 @@
+App.controller('clueController', ['$scope', '$http', '$timeout', '$uibModal', function($scope, $http, $timeout, $uibModal, Message) {
+
+    var app = angular.module('app', []);
+    /* 列表对象 */
+    $scope.listObj = {
+		
+		pageSize: 10,
+		currentPage: 1,
+		totalCount: 0,
+		pages: 1,
+		inputPage: "",
+		
+        data: null,
+        selectData: [],
+        allSelected: false,
+        load: function() {
+            $.ajax({
+		   	     type : "POST",  //提交方式
+		   	     url : "/ns/searchAssets",//路径
+		   	     data : {
+		   	    	 page:$scope.listObj.pages - 1,
+		   	    	 size:$scope.listObj.pageSize
+		   	      },
+		   	      success : function(resp) {
+		   	    	  if (resp != null) {
+		   	    		angular.forEach(resp.items, function(x, i) {		//加载初始化值
+							x.selected = false;
+							if (x.editStatus == "DRAFT" || x.editStatus == "SUBMIT") {
+								x.editStatus = "未上传";
+							}else if (x.editStatus == "LIBRARY") {
+								x.editStatus = "已上传";
+							};
+						});
+		                $scope.listObj.data = resp.items;
+					}
+		   	    	  $scope.listObj.totalCount = resp.totalCount;
+		   	      }
+		   	});
+        },
+        selected: function(at, e) {
+            e.stopPropagation();
+            at.selected = !at.selected;
+            if (at.selected) {
+                this.obj = angular.copy(at);
+                this.flagObj = at;
+                this.selectData.push(at);
+            }else {
+                for (var i = 0; i <= this.selectData.length - 1; i++) {
+                    var item = this.selectData;
+                    if (!item[i].selected) {
+                        this.selectData.splice(i,1);
+                    }
+                }
+            }
+            console.log(this.selectData);
+        },
+        allchecked: function() {
+            if(!this.allSelected) {
+                angular.forEach(this.data, function(item, index) {
+                    item.selected = true;
+                    $scope.listObj.selectData.splice(index,1,item);
+                });
+            } else {
+                angular.forEach(this.data, function(item, index) {
+                    item.selected = false;
+                });
+            }
+            this.allSelected = !this.allSelected;
+        },
+        deleteClue:function () {
+        	if (this.selectData.length == 0) {
+//				Message.danger("请至少选择一个删除项!");
+        		console.log("请至少选择一个删除项!");
+			}else {
+				var msg = "您真的确定要删除吗？\n\n请确认！";
+				if (confirm(msg) == true) {
+					angular.forEach($scope.listObj.selectData, function(at){
+						$.ajax({
+			        	     type : "GET",  //提交方式
+			        	     url : "/ns/deleteById",//路径
+			        	     data : {
+			        	    	  moId:at.id,
+			        	      },
+			        	      success : function(resp) {
+				    	    	  $scope.message = resp;
+				                  $scope.ClueEditor.cancel();
+				                  $timeout(function() {
+				                      $scope.listObj.load();
+				                  }, 1000);
+			        	      }
+			        	});
+						/*$http({
+							url:'/ns/deleteById',
+							method:'DELETE',
+							data:param
+						}).success(function (resp) {
+							$scope.message = resp;
+							$timeout(function() {
+								$scope.listObj.load();
+							}, 1000);
+						});*/
+					});
+				}
+			}
+        },
+        uploadClue:function (updateType){
+        	if (this.selectData.length == 0) {
+        		console.log("请至少选择一个上传项!");
+			}else {
+				angular.forEach($scope.listObj.selectData, function(at){
+					var param = {
+						id:at.id,
+						authorName:at.authorName,
+		                content:at.content,
+		                createdBy:at.createdBy,
+		                clueName:at.clueName,
+		                createdTime:at.createdTime,
+		                editStatus:updateType
+					};
+					$http({
+						url:'/ns/update',
+						method:'POST',
+						data:param
+					}).success(function (resp) {
+						$scope.message = resp;
+						$timeout(function() {
+							$scope.listObj.load();
+						}, 1000);
+					});
+				});
+			}
+        },
+        showDetail: function(row) {
+            $scope.ClueEditor.show(row);
+        },
+        submit: function() { //提交
+            //TODO
+            console.log("submit");
+        },
+        createNew: function () {
+            $scope.ClueEditor.createNew();
+        }
+    }
+
+    $scope.condition = {
+        columnNameArr:{
+            1:"栏目1",
+            2:"栏目2",
+            3:"栏目3",
+            4:"栏目4"
+        },
+        newsDomain:{
+            1:"时政",
+            2:"军事",
+            3:"民生",
+            4:"政治"
+        }
+    }
+
+    $scope.ClueEditor = {
+        isNew:false,
+        obj:null,
+        listObj:null,
+        data:null,
+        isNew:false,
+        isEditStatus:false,
+
+        createNew:function () {
+            this.isNew = true;
+            this.obj = {
+                clueName:'',
+                authorName:'',
+                createdBy:'',
+                createdTime:new Date(),
+            }
+        },
+
+        cancel:function () {
+            this.obj = null;
+            this.isNew = false;
+        },
+        
+        show:function (row) {
+        	this.obj = row;
+        	if (this.obj.editStatus == "已上传") {
+				this.isEditStatus = false;
+			}else {
+				this.isEditStatus = true;
+			}
+        },
+
+        updateAsset:function (updateType) {
+        	if (this.obj.id == null || this.obj.id == undefined) {
+        		this.obj.id = null;	//新建稿件,id默认值为0
+			}
+            var param = {
+                id:this.obj.id,
+            	authorName:this.obj.authorName,
+                content:this.obj.content,
+                createdBy:this.obj.createdBy,
+                clueName:this.obj.clueName,
+                createdTime:new Date(),
+                editStatus:updateType
+            };
+            $http({
+                url:'/ns/add',
+                method:'POST',
+                data:param,
+            }).success(function (resp) {
+                $scope.message = resp;
+                $scope.ClueEditor.cancel();
+                $timeout(function() {
+                    $scope.listObj.load();
+                }, 1000);
+            });
+        },
+        
+        downloadDoc:function(moId) {
+        	window.location = '/ns/doc?assetType=CLUE&moId=' + moId;
+        	/*$.ajax({
+        	     type : "GET",  //提交方式
+        	     url : "/ns/doc",//路径
+        	     data : {
+        	    	  moId:moId,
+        	    	  assetType:'CLUE'
+        	      },
+        	      success : function(resp) {
+	    	    	  $scope.message = resp;
+	                  $scope.ClueEditor.cancel();
+	                  $timeout(function() {
+	                      //$scope.listObj.load();
+	                  }, 1000);
+        	      }
+        	});*/
+        }
+
+    }
+
+
+
+    //初始化函数
+    $scope.init = function() {
+        $scope.listObj.load();
+    }
+    $scope.init();
+
+
+}]);
