@@ -3,9 +3,17 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>login</title>
+		<!-- <link th:href="@{/resources/common/css/login.css}" rel="stylesheet"> -->
 	</head>
+	<!-- <body style="background:url('./resources/common/imgs/Desert.jpg') 50% fixed"> -->
 	<body>
-	    错误信息：<h4 th:text="${msg}"></h4>
+		<div style="text-align: center;">
+		    <div>
+		        <!-- <img style="height:200px" th:src="@{/resources/common/imgs/Desert.jpg}"/> -->
+		        <p class="text-center"><span style="color:#0bb59b;">任凭时光匆匆，</span><span>记录点点滴滴。</span></p>
+		    </div>
+		</div>
+	          错误信息：<h4 th:text="${msg}"></h4>
 		<form action="" method="post">
 			<p>账号：<input type="text" name="username" value="admin"/></p>
 			<p>密码：<input type="text" name="password" value="123456"/></p>

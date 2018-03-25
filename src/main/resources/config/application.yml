@@ -15,3 +15,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+#spring.thymeleaf.mode的默认值是HTML5，其实是一个很严格的检查，
+#改为LEGACYHTML5可以得到一个可能更友好亲切的格式要求。
+#LEGACYHTML5需要搭配一个额外的库NekoHTML才可用
+#   <dependency>
+#     <groupId>net.sourceforge.nekohtml</groupId>
+#     <artifactId>nekohtml</artifactId>
+#     <version>1.9.15</version>
+#   </dependency>
+    mode: LEGACYHTML5

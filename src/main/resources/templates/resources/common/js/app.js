@@ -15,29 +15,6 @@ App.config(['$routeProvider', '$provide', function($routeProvider, $provide) {
 			redirectTo: '/'
 		});
 	}])
-/*App.config(function ($stateProvider, $urlRouterProvider) {
-	    $stateProvider
-	        .state('session.ns_resource_b.library', {
-	            url: '/activiti',
-	            templateUrl: 'partials/activiti.html',
-	            controllerUrl: 'static/partials/activiti.js',
-	            controller: 'activitiController',
-	            portal: {
-	                title: '设备管理',
-	                access: { },
-	                isModulePage: true
-	            },
-	            dependencies: []
-	        })
-	        .state('session.ns_clue.library', { 
-	            url: '/clue',
-	            templateUrl: 'partials/clue.html',
-	            controllerUrl: 'static/partials/clue.js',
-	            controller: 'clueController',
-	            dependencies: []
-	        })
-		}
-	)*/
 	.controller('MainController', ['$rootScope', '$scope', '$uibModal',
 		function($rootScope, $scope, $uibModal) {
 
